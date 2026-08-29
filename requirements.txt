@@ -1,0 +1,5 @@
+streamlit
+pandas
+openpyxl
+reportlab
+新增 requirements.txt 與調整程式排版
