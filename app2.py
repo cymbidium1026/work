@@ -62,14 +62,6 @@ selected_font_label = st.sidebar.selectbox(
 )
 font_path = font_options[selected_font_label]
 
-if os.path.exists(font_path):
-  pdfmetrics.registerFont(TTFont("CUSTOM_FONT", font_path))
-  FONT_NAME = "CUSTOM_FONT"
-else:
-  FONT_NAME = "Helvetica"
-  st.sidebar.warning(
-      f"找不到字型檔 {font_path}，將自動改用預設英文字型 Helvetica。"
-  )
 
 font_size = st.sidebar.slider("內文自訂字型大小", 8, 14, 10, 1)
 line_spacing = st.sidebar.slider("內文行距 (Leading)", 10, 20, 14, 1)
