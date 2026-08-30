@@ -746,33 +746,43 @@ if st.button("📄 產生 PDF 檔案", type="primary"):
   st.success("PDF 報價單產生成功！")
 
 if "pdf_data" in st.session_state:
-  file_name_str = f"{project_name}_報價單.pdf"
+    file_name_str = f"{project_name}_報價單.pdf"
 
-  if "show_preview" not in st.session_state:
-    st.session_state["show_preview"] = False
+    if "show_preview" not in st.session_state:
+      st.session_state["show_preview"] = False
 
-  col_dl, col_prev = st.columns([1, 1])
-  with col_dl:
-    st.download_button(
-        label="📥 下載正式 PDF 報價單",
-        data=st.session_state["pdf_data"],
-        file_name=file_name_str,
-        mime="application/pdf",
-    )
-  with col_prev:
-    if st.button("👀 預覽 PDF 報價單"):
-      st.session_state["show_preview"] = not st.session_state["show_preview"]
+    col_dl, col_prev = st.columns([1, 1])
+    with col_dl:
+      st.download_button(
+          label="📥 下載正式 PDF 報價單",
+          data=st.session_state["pdf_data"],
+          file_name=file_name_str,
+          mime="application/pdf",
+      )
+    with col_prev:
+      if st.button("👀 預覽 PDF 報價單"):
+        st.session_state["show_preview"] = not st.session_state["show_preview"]
 
-  if st.session_state["show_preview"]:
-    st.markdown("### 🔍 PDF 預覽畫面")
-    base64_pdf = base64.b64encode(st.session_state["pdf_data"]).decode("utf-8")
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="700px" type="application/pdf"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
-    st.markdown("---")
+    if st.session_state["show_preview"]:
+      st.markdown("### 🔍 PDF 預覽畫面")
+      
+      # 針對手機版友善提示與按鈕
+      st.info("💡 若手機畫面無法正常顯示 iframe 預覽，您可以點擊下方按鈕在新視窗檢視，或直接使用上方按鈕下載。")
+      
+      pdf_base64 = base64.b64encode(st.session_state["pdf_data"]).decode("utf-8")
+      
+      # 提供新分頁檢視按鈕（對手機非常友善）
+      href = f'<a href="data:application/pdf;base64,{pdf_base64}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #FF4B4B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 15px;">📱 點我另存或開新分頁檢視 PDF</a>'
+      st.markdown(href, unsafe_allow_html=True)
 
-  col_email, col_gdrive = st.columns(2)
+      # 電腦版常用的 iframe 預覽
+      pdf_display = f'<iframe src="data:application/pdf;base64,{pdf_base64}" width="100%" height="700px" type="application/pdf"></iframe>'
+      st.markdown(pdf_display, unsafe_allow_html=True)
+      st.markdown("---")
 
-  with col_email:
+col_email, col_gdrive = st.columns(2)
+
+with col_email:
     if st.button("📧 發送電子郵件給業主"):
       try:
         msg = MIMEMultipart()
@@ -802,7 +812,7 @@ if "pdf_data" in st.session_state:
       except Exception as e:
         st.error(f"郵件發送失敗，請檢查設定與密碼：{e}")
 
-  with col_gdrive:
+with col_gdrive:
     if st.button("☁️ 上傳至 Google 雲端硬碟"):
       if not gdrive_enabled:
         st.warning("請先在側邊欄勾選「啟用 Google 雲端上傳功能」")
