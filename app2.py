@@ -62,6 +62,17 @@ selected_font_label = st.sidebar.selectbox(
 )
 font_path = font_options[selected_font_label]
 
+# === 註冊 ReportLab 自訂字型並定義 FONT_NAME ===
+FONT_NAME = "CustomFont"
+try:
+    if os.path.exists(font_path):
+        pdfmetrics.registerFont(TTFont(FONT_NAME, font_path))
+    else:
+        # 如果找不到檔案，退回使用內建的 Helvetica (避免直接崩潰)
+        FONT_NAME = "Helvetica"
+except Exception as e:
+    FONT_NAME = "Helvetica"
+
 
 font_size = st.sidebar.slider("內文自訂字型大小", 8, 14, 10, 1)
 line_spacing = st.sidebar.slider("內文行距 (Leading)", 10, 20, 14, 1)
