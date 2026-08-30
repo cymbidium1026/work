@@ -51,10 +51,10 @@ st.title("🧾 專業工程報價單系統（PDF 與 Excel 雙向報價管理）
 # ==========================================
 st.sidebar.header("🎨 報價單樣式與字型設定")
 
+BASE_DIR = os.path.dirname(os.path.abspath(https://github.com/cymbidium1026/work/blob/f30446e573c7fcfe8b9baf0a36aa36809971f905/MSJH.TTC))
 font_options = {
-    "微軟正黑體": "C:/Windows/Fonts/msjh.ttc",
-    "標楷體": "C:/Windows/Fonts/kaiu.ttf",
-    "新細明體": "C:/Windows/Fonts/mingliu.ttc",
+    "微軟正黑體": os.path.join(BASE_DIR, "微軟正黑體", "MSJH.TTC"),
+    # 如果您有上傳其他字型，也可以在這裡用 os.path.join(BASE_DIR, "fonts", "MSJH.TTC") 補上
 }
 
 selected_font_label = st.sidebar.selectbox(
