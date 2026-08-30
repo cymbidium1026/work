@@ -56,12 +56,6 @@ font_options = {
     "微軟正黑體": os.path.join(BASE_DIR, "fonts", "MSJH.TTC"),
 }
 
-font_options = {
-    "微軟正黑體": "C:/Windows/Fonts/msjh.ttc",
-    "標楷體": "C:/Windows/Fonts/kaiu.ttf",
-    "新細明體": "C:/Windows/Fonts/mingliu.ttc",
-}
-
 selected_font_label = st.sidebar.selectbox(
     "選擇 PDF 字型", list(font_options.keys())
 )
