@@ -50,7 +50,7 @@ st.title("🧾 專業工程報價單系統（PDF 與 Excel 雙向報價管理）
 # 0. 側邊欄：格式設定與欄寬自訂
 # ==========================================
 st.sidebar.header("🎨 報價單樣式與字型設定")
-import os# 1. 取得目前程式所在的資料夾絕對路徑（注意 __file__ 前後各有兩個底線）
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))# 2. 將字型路徑指向專案資料夾底下的 fonts 資料夾與字型檔
 font_options = {
     "微軟正黑體": os.path.join(BASE_DIR, "fonts", "MSJH.TTC"),
